@@ -22,7 +22,7 @@ if (typeof web3 !== 'undefined') {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'))
 }
 
-const contractAdd="0xBDc31a136b00F66080c5c74d7F304dAd0B6eBEC3";
+const contractAdd="0x4132864daC3EC09747f61577100ED75DB229a4BC";
 var contract= new web3.eth.Contract(abi,contractAdd);
 var deployerAddress
 web3.eth.getAccounts().then(function(e){
