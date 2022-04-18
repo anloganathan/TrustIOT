@@ -11,34 +11,40 @@ contract Records{
         owner =msg.sender;
     }
 
-   uint256 thermoId=0;
-    uint256 pulseOxiId=0;
-    uint256 patientId=0;
+   uint256 thermoId=1;
+    uint256 pulseOxiId=1;
+    uint256 patientId=1;
 
     struct Patient{
         uint256 patientId;
+        Thermometer[] t;
+        PulseOximeter[] p;
     }
 
-    Patient[] public patient_list;
+    mapping(uint256=>Patient) public patient_details;
+
+    uint256[] public patient_list;
 
     function addPatient() public returns(bool){
-        Patient memory patient;
-        patient=Patient(patientId);
+        Patient storage p=patient_details[patientId];
+        p.patientId=patientId;
+        p.t.push(Thermometer(0,0,block.timestamp));
+        p.p.push(PulseOximeter(0,0,0,block.timestamp));
+        patient_list.push(patientId);
         patientId++;
-        patient_list.push(patient);
         return true;
     }
 
     struct Thermometer{
         uint256 thermoId;
-        uint8 readingsInCelsius;
+        uint256 readingsInCelsius;
         uint256 timestamp;
     }
 
     Thermometer[] public thermometer_list;
     Thermometer private thermo;
 
-    mapping(uint256=>Thermometer) thermoReadings;
+    mapping(uint256=>Thermometer[]) thermoReadings;
 
     function addThermometer() public returns(bool){
         thermo=Thermometer(thermoId,0,block.timestamp);
@@ -72,7 +78,7 @@ contract Records{
     PulseOximeter[] public pulseoxi_list;
     PulseOximeter private pulse;
 
-    mapping(uint256=>PulseOximeter) pulseReadings;
+    mapping(uint256=>PulseOximeter[]) pulseReadings;
 
     function addPulseOxi() public returns(bool) {
         pulse=PulseOximeter(pulseOxiId,0,0,block.timestamp);
@@ -82,11 +88,11 @@ contract Records{
     }
 
 
-    function pushThermoReadings(uint256 id,uint8 readings,uint256 pid) public returns( bool ){
+    function pushThermoReadings(uint256 id,uint256 readings,uint256 pid) public returns( bool ){
         require(thermoExist(id),"No such device exists!");
         require(patientExist(pid),"No Such Patient Exist!");
         thermo=Thermometer(id,readings,block.timestamp);
-        thermoReadings[pid]=(thermo);
+        patient_details[pid].t.push(thermo);
         return true;
     }
     
@@ -94,11 +100,11 @@ contract Records{
         require(pulseOxiExist(id),"No such device exists");
         require(patientExist(pid),"No Such Patient Exist!");
         pulse=PulseOximeter(id,hr,bp,block.timestamp);
-        pulseReadings[pid]=(pulse);
+        patient_details[pid].p.push(pulse);
         return true;
     }
 
-   function getListOfPatients() public view returns(Patient[] memory){
+   function getListOfPatients() public view returns(uint256[] memory){
        require(patient_list.length>0,"No Patients yet!");
        return patient_list;
    }
@@ -113,4 +119,7 @@ contract Records{
        return pulseoxi_list;
    }
 
+    function getPatientDetails(uint256 pid) public view returns(Patient memory){
+        return patient_details[pid];
+    }
 }
