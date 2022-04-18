@@ -29,7 +29,7 @@ contract Records{
         Patient storage p=patient_details[patientId];
         p.patientId=patientId;
         p.t.push(Thermometer(0,0,block.timestamp));
-        p.p.push(PulseOximeter(0,0,0,block.timestamp));
+        p.p.push(PulseOximeter(0,0,0,0,block.timestamp));
         patient_list.push(patientId);
         patientId++;
         return true;
@@ -71,7 +71,8 @@ contract Records{
     struct PulseOximeter{
         uint256 pulseOxiId;
         uint32 HeartRate;
-        uint32 bloodPressure;
+        uint32 bp_systolic;
+        uint32 bp_diastolic;
         uint256 timestamp;
     }
     
@@ -81,7 +82,7 @@ contract Records{
     mapping(uint256=>PulseOximeter[]) pulseReadings;
 
     function addPulseOxi() public returns(bool) {
-        pulse=PulseOximeter(pulseOxiId,0,0,block.timestamp);
+        pulse=PulseOximeter(pulseOxiId,0,0,0,block.timestamp);
         pulseOxiId++;
         pulseoxi_list.push(pulse);
         return true;
@@ -96,10 +97,10 @@ contract Records{
         return true;
     }
     
-    function pushPulseReadings(uint256 id,uint32 hr,uint32 bp,uint256 pid) public returns( bool ){
+    function pushPulseReadings(uint256 id,uint32 hr,uint32 bp_sys,uint32 bp_dia,uint256 pid) public returns( bool ){
         require(pulseOxiExist(id),"No such device exists");
         require(patientExist(pid),"No Such Patient Exist!");
-        pulse=PulseOximeter(id,hr,bp,block.timestamp);
+        pulse=PulseOximeter(id,hr,bp_sys,bp_dia,block.timestamp);
         patient_details[pid].p.push(pulse);
         return true;
     }

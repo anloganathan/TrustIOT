@@ -22,7 +22,7 @@ if (typeof web3 !== 'undefined') {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'))
 }
 
-const contractAdd="0xd01782A1D3e8B68dBD6a8Fa6D6be2881aB7Ee6Dd";
+const contractAdd="0xBDc31a136b00F66080c5c74d7F304dAd0B6eBEC3";
 var contract= new web3.eth.Contract(abi,contractAdd);
 var deployerAddress
 web3.eth.getAccounts().then(function(e){
@@ -173,6 +173,28 @@ catch(err){
 app.post('/pushThermoReadings',async (req, res) => {
   try{
     await contract.methods.pushThermoReadings(req.body.id,req.body.readings,req.body.pid).send({from:deployerAddress,gas:150000}).then(function(value){
+        console.log(value);
+        res.status(201).json({success:true});
+    }).catch(e=>{
+        const data = e.data;
+        const txHash = Object.keys(data)[0]; // TODO improve
+        const reason = data[txHash].reason;        
+        console.log(reason);
+        console.log(e); // prints "This is error message"
+        res.status(404).json({ success: false, error: reason });
+    });
+}
+catch(err){
+    res.status(404).json({ success: false, err: err.message });
+    console.log(err.message);
+}
+});
+
+
+
+app.post('/pushPulseOxiReadings',async (req, res) => {
+  try{
+    await contract.methods.pushPulseReadings(req.body.id,req.body.hr,req.body.bp_sys,req.body.bp_dia,req.body.pid).send({from:deployerAddress,gas:150000}).then(function(value){
         console.log(value);
         res.status(201).json({success:true});
     }).catch(e=>{
