@@ -1,0 +1,35 @@
+.devices {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.devices-header {
+  margin: 0 12px 6px 12px;
+}
+
+.devices-refresh {
+  margin: 0 18px 18px 18px;
+}
+
+.devices-accordion {
+  width: 90%;
+  max-width: 1000px;
+}
+
+.devices-accordion-body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.devices-accordion-body span {
+  font-size: 14px;
+}
+
+.devices-accordion-body h4 {
+  font-size: 20px;
+  display: inline;
+}

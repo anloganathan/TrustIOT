@@ -1,0 +1,35 @@
+.patients {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.patients-header {
+  margin: 0 12px 6px 12px;
+}
+
+.patients-refresh {
+  margin: 0 18px 18px 18px;
+}
+
+.patients-accordion {
+  width: 90%;
+  max-width: 1000px;
+}
+
+.patients-accordion-body {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.patients-accordion-body span {
+  font-size: 14px;
+}
+
+.patients-accordion-body h4 {
+  font-size: 20px;
+  display: inline;
+}
