@@ -1,137 +1,28 @@
 [
     {
-        "id": "1d5587137a53064f",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "aa8504af83e3c9e6",
+        "id": "1d3be095357d1875",
         "type": "http request",
         "z": "1d5587137a53064f",
         "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "paytoqs": "body",
-        "url": "http://localhost:3000/pushThermoReadings",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "",
-        "senderr": false,
-        "x": 710,
-        "y": 240,
-        "wires": [
-            [
-                "5acb6bf6ab0f0971"
-            ]
-        ]
-    },
-    {
-        "id": "5acb6bf6ab0f0971",
-        "type": "debug",
-        "z": "1d5587137a53064f",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 950,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "0998b75e96a0d971",
-        "type": "inject",
-        "z": "1d5587137a53064f",
-        "name": "Thermometer",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "5",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"id\":1,\"readings\":39,\"pid\":1}",
-        "payloadType": "json",
-        "x": 460,
-        "y": 220,
-        "wires": [
-            [
-                "aa8504af83e3c9e6"
-            ]
-        ]
-    },
-    {
-        "id": "ee631fc565e2e16c",
-        "type": "inject",
-        "z": "1d5587137a53064f",
-        "name": "PulseOximeter",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "7",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"id\":1,\"hr\":90,\"bp_sys\":130,\"bp_dia\":70,\"pid\":1}",
-        "payloadType": "json",
-        "x": 480,
-        "y": 340,
-        "wires": [
-            [
-                "bb577aed82c3fc53"
-            ]
-        ]
-    },
-    {
-        "id": "bb577aed82c3fc53",
-        "type": "http request",
-        "z": "1d5587137a53064f",
-        "name": "",
-        "method": "POST",
+        "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://localhost:3000/pushPulseOxiReadings",
+        "url": "http://localhost:3000/addPulseOximeter",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 710,
-        "y": 360,
+        "credentials": {
+            "user": "",
+            "password": ""
+        },
+        "x": 670,
+        "y": 640,
         "wires": [
             [
-                "fbea0c4f7ed1a710"
+                "d44d64faefe1def2"
             ]
         ]
-    },
-    {
-        "id": "fbea0c4f7ed1a710",
-        "type": "debug",
-        "z": "1d5587137a53064f",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 970,
-        "y": 380,
-        "wires": []
     }
 ]

@@ -62,7 +62,7 @@ app.get('/addPatient',async (req,res)=>{
     await contract.methods.addPatient().send({from:deployerAddress,gas:250000}).then(function(value){
         
         console.log(value);
-        res.status(201).json({success:true});
+        res.status(201).json({success:"added new Patient"});
     }).catch(e=>{
         const data = e.data;
         const txHash = Object.keys(data)[0]; // TODO improve
@@ -84,7 +84,7 @@ app.get('/addThermometer',async (req,res)=>{
         
         
         console.log(value);
-        res.status(201).json({success:true});
+        res.status(201).json({success:"added new Thermometer"});
     }).catch(e=>{
         const data = e.data;
         const txHash = Object.keys(data)[0]; // TODO improve
@@ -130,7 +130,7 @@ app.get('/addPulseOximeter',async (req,res)=>{
         
         
         console.log(value);
-        res.status(201).json({success:true});
+        res.status(201).json({success:"added new PulseOxiMeter"});
     }).catch(e=>{
         const data = e.data;
         const txHash = Object.keys(data)[0]; // TODO improve
@@ -174,7 +174,7 @@ app.post('/pushThermoReadings',async (req, res) => {
   try{
     await contract.methods.pushThermoReadings(req.body.id,req.body.readings,req.body.pid).send({from:deployerAddress,gas:150000}).then(function(value){
         console.log(value);
-        res.status(201).json({success:true});
+        res.status(201).json({success:"Thermo readings pushed"});
     }).catch(e=>{
         const data = e.data;
         const txHash = Object.keys(data)[0]; // TODO improve
@@ -196,7 +196,7 @@ app.post('/pushPulseOxiReadings',async (req, res) => {
   try{
     await contract.methods.pushPulseReadings(req.body.id,req.body.hr,req.body.bp_sys,req.body.bp_dia,req.body.pid).send({from:deployerAddress,gas:150000}).then(function(value){
         console.log(value);
-        res.status(201).json({success:true});
+        res.status(201).json({success:"PulseOxi readings pushed"});
     }).catch(e=>{
         const data = e.data;
         const txHash = Object.keys(data)[0]; // TODO improve
