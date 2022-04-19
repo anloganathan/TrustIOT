@@ -56,18 +56,18 @@
                 "p": "payload"
             }
         ],
-        "repeat": "5",
+        "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "{\"id\":1,\"readings\":39,\"pid\":1}",
         "payloadType": "json",
-        "x": 460,
+        "x": 250,
         "y": 220,
         "wires": [
             [
-                "aa8504af83e3c9e6"
+                "e26c014b9c605ba0"
             ]
         ]
     },
@@ -81,18 +81,18 @@
                 "p": "payload"
             }
         ],
-        "repeat": "7",
+        "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "{\"id\":1,\"hr\":90,\"bp_sys\":130,\"bp_dia\":70,\"pid\":1}",
         "payloadType": "json",
-        "x": 480,
-        "y": 340,
+        "x": 240,
+        "y": 320,
         "wires": [
             [
-                "bb577aed82c3fc53"
+                "041652e6c5561029"
             ]
         ]
     },
@@ -320,6 +320,44 @@
         "wires": [
             [
                 "7989d373b10a6c74"
+            ]
+        ]
+    },
+    {
+        "id": "e26c014b9c605ba0",
+        "type": "function",
+        "z": "1d5587137a53064f",
+        "name": "",
+        "func": "function randomNumber(min, max) { \n    return Math.floor(Math.random() * (max - min) + min);\n} \n\n\nmsg.payload.id=randomNumber(1,4);\nmsg.payload.readings=randomNumber(36,42);\nmsg.payload.pid=randomNumber(1,4);\nnode.log(JSON.stringify(msg));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "aa8504af83e3c9e6"
+            ]
+        ]
+    },
+    {
+        "id": "041652e6c5561029",
+        "type": "function",
+        "z": "1d5587137a53064f",
+        "name": "",
+        "func": "function randomNumber(min, max) { \n    return Math.floor(Math.random() * (max - min) + min);\n} \n\n\nmsg.payload.id=randomNumber(1,4);\nmsg.payload.hr=randomNumber(70,130);\nmsg.payload.by_sys=randomNumber(110,140);\nmsg.payload.by_dia=randomNumber(70,90);\nmsg.payload.pid=randomNumber(1,4);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "bb577aed82c3fc53"
             ]
         ]
     }
